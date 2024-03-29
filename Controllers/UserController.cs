@@ -9,6 +9,8 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Data.Sql;
 using Microsoft.Extensions.Configuration;
 using System;
+using Application.Functions;
+
 
 namespace Application.Controllers
 {
@@ -30,7 +32,9 @@ namespace Application.Controllers
         [HttpGet("/[controller]/k")]
         public string Kian()
         {
-            return "Kian Sarmen";
+            string password = "@Sarmen20";
+            var encrypted = PasswordEncryption.Encrypt(password);
+            return encrypted;
         }
 
         /*[HttpGet("/[controller]/all")]*/
@@ -46,40 +50,6 @@ namespace Application.Controllers
 
              return l;
          }*/
-
-        [HttpPost("/[controller]/reg")]
-        public ActionResult<Object> RegisterUser(UserModel body)
-        {
-            string auth = HttpContext.Request.Headers["Authorization"];
-
-            if (auth != "Bearer @Sarmen20")
-            {
-                return new StatusCode { code = 401, message = "Not authorized" };
-            }
-
-            try {
-
-                /*string connectionString = "Data Source=jnarvaez; Database=ASPNET;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False";*/
-                string connectionString = this.configuration.GetConnectionString("App");
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-
-                    DbCommand cmd = new SqlCommand("INSERT INTO dbo.userinfo (firstname,lastname) VALUES ('Reynan','Belendevs');", conn);
-                    cmd.ExecuteReader();
-
-                    conn.Close();
-                }
-
-
-            }
-            catch (Exception ex)
-            {
-
-                Console.Write(ex.StackTrace);
-            }
-            return body;
-        }
 
         [HttpPost("signup")]
         public ActionResult<Object> SignUp(UserModel body)
@@ -148,7 +118,7 @@ namespace Application.Controllers
 
                     SqlParameter passwordInsertParam = new SqlParameter();
                     passwordInsertParam.ParameterName = "@password";
-                    passwordInsertParam.Value = user.password;
+                    passwordInsertParam.Value = PasswordEncryption.Encrypt(user.password);
                     insertCmd.Parameters.Add(passwordInsertParam);
 
                     SqlParameter emailInsertParam = new SqlParameter();

@@ -1,18 +1,22 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\jonathan.narvaez\\source\\repos\\Application\\",
+  "WorkspaceRootPath": "C:\\Users\\Jonathan Narvaez\\Desktop\\techstore-rest-api\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{05740D51-F8D8-4951-8DA6-7774209F270E}|Application.csproj|c:\\users\\jonathan.narvaez\\source\\repos\\application\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{05740D51-F8D8-4951-8DA6-7774209F270E}|Application.csproj|solutionrelative:controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{05740D51-F8D8-4951-8DA6-7774209F270E}|Application.csproj|c:\\users\\jonathan.narvaez\\source\\repos\\application\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{05740D51-F8D8-4951-8DA6-7774209F270E}|Application.csproj|c:\\users\\jonathan narvaez\\desktop\\techstore-rest-api\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{05740D51-F8D8-4951-8DA6-7774209F270E}|Application.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{05740D51-F8D8-4951-8DA6-7774209F270E}|Application.csproj|c:\\users\\jonathan.narvaez\\source\\repos\\application\\queries\\productsqueries.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{05740D51-F8D8-4951-8DA6-7774209F270E}|Application.csproj|solutionrelative:queries\\productsqueries.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{05740D51-F8D8-4951-8DA6-7774209F270E}|Application.csproj|c:\\users\\jonathan narvaez\\desktop\\techstore-rest-api\\functions\\passwordencryption.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{05740D51-F8D8-4951-8DA6-7774209F270E}|Application.csproj|solutionrelative:functions\\passwordencryption.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{05740D51-F8D8-4951-8DA6-7774209F270E}|Application.csproj|c:\\users\\jonathan narvaez\\desktop\\techstore-rest-api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{05740D51-F8D8-4951-8DA6-7774209F270E}|Application.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{05740D51-F8D8-4951-8DA6-7774209F270E}|Application.csproj|c:\\users\\jonathan narvaez\\desktop\\techstore-rest-api\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{05740D51-F8D8-4951-8DA6-7774209F270E}|Application.csproj|solutionrelative:controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,43 +26,55 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "C:\\Users\\jonathan.narvaez\\source\\repos\\Application\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "Controllers\\UserController.cs",
-              "ToolTip": "C:\\Users\\jonathan.narvaez\\source\\repos\\Application\\Controllers\\UserController.cs",
-              "RelativeToolTip": "Controllers\\UserController.cs",
-              "ViewState": "AQIAAGMAAAAAAAAAAADwv1MAAAAZAAAA",
+              "Title": "PasswordEncryption.cs",
+              "DocumentMoniker": "C:\\Users\\Jonathan Narvaez\\Desktop\\techstore-rest-api\\Functions\\PasswordEncryption.cs",
+              "RelativeDocumentMoniker": "Functions\\PasswordEncryption.cs",
+              "ToolTip": "C:\\Users\\Jonathan Narvaez\\Desktop\\techstore-rest-api\\Functions\\PasswordEncryption.cs",
+              "RelativeToolTip": "Functions\\PasswordEncryption.cs",
+              "ViewState": "AQIAAAUAAAAAAAAAAAAxwBUAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-25T06:36:50.712Z"
+              "WhenOpened": "2024-03-28T12:15:48.255Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ProductController.cs",
+              "DocumentMoniker": "C:\\Users\\Jonathan Narvaez\\Desktop\\techstore-rest-api\\Controllers\\ProductController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ProductController.cs",
+              "ToolTip": "C:\\Users\\Jonathan Narvaez\\Desktop\\techstore-rest-api\\Controllers\\ProductController.cs",
+              "RelativeToolTip": "Controllers\\ProductController.cs",
+              "ViewState": "AQIAALsAAAAAAAAAAAAcwAMAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-22T05:58:02.547Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "ProductsQueries.cs",
-              "DocumentMoniker": "C:\\Users\\jonathan.narvaez\\source\\repos\\Application\\Queries\\ProductsQueries.cs",
-              "RelativeDocumentMoniker": "Queries\\ProductsQueries.cs",
-              "ToolTip": "C:\\Users\\jonathan.narvaez\\source\\repos\\Application\\Queries\\ProductsQueries.cs",
-              "RelativeToolTip": "Queries\\ProductsQueries.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAAAAAA",
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Jonathan Narvaez\\Desktop\\techstore-rest-api\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\Jonathan Narvaez\\Desktop\\techstore-rest-api\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-25T04:03:10.122Z"
+              "WhenOpened": "2024-03-28T11:56:01.346Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ProductController.cs",
-              "DocumentMoniker": "C:\\Users\\jonathan.narvaez\\source\\repos\\Application\\Controllers\\ProductController.cs",
-              "RelativeDocumentMoniker": "Controllers\\ProductController.cs",
-              "ToolTip": "C:\\Users\\jonathan.narvaez\\source\\repos\\Application\\Controllers\\ProductController.cs",
-              "RelativeToolTip": "Controllers\\ProductController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAfAAAA",
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\Jonathan Narvaez\\Desktop\\techstore-rest-api\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\Jonathan Narvaez\\Desktop\\techstore-rest-api\\Controllers\\UserController.cs",
+              "RelativeToolTip": "Controllers\\UserController.cs",
+              "ViewState": "AQIAABcAAAAAAAAAAAAQwCIAAAAoAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-22T05:58:02.547Z",
+              "WhenOpened": "2024-03-25T06:36:50.712Z",
               "EditorCaption": ""
             }
           ]
