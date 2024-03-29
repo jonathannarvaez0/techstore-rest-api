@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jonathan.narvaez\\source\\repos\\Application\\Application.csproj": {}
+    "C:\\Users\\Jonathan Narvaez\\Desktop\\techstore-rest-api\\Application.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jonathan.narvaez\\source\\repos\\Application\\Application.csproj": {
+    "C:\\Users\\Jonathan Narvaez\\Desktop\\techstore-rest-api\\Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jonathan.narvaez\\source\\repos\\Application\\Application.csproj",
+        "projectUniqueName": "C:\\Users\\Jonathan Narvaez\\Desktop\\techstore-rest-api\\Application.csproj",
         "projectName": "Application",
-        "projectPath": "C:\\Users\\jonathan.narvaez\\source\\repos\\Application\\Application.csproj",
-        "packagesPath": "C:\\Users\\jonathan.narvaez\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jonathan.narvaez\\source\\repos\\Application\\obj\\",
+        "projectPath": "C:\\Users\\Jonathan Narvaez\\Desktop\\techstore-rest-api\\Application.csproj",
+        "packagesPath": "C:\\Users\\Jonathan Narvaez\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Jonathan Narvaez\\Desktop\\techstore-rest-api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\jonathan.narvaez\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Jonathan Narvaez\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
