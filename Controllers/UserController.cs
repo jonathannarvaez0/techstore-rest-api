@@ -195,7 +195,7 @@ namespace Application.Controllers
 
                     SqlParameter passwordParam = new SqlParameter();
                     passwordParam.ParameterName = "password";
-                    passwordParam.Value = user.password;
+                    passwordParam.Value = PasswordEncryption.Encrypt(user.password);
 
                     cmd.Parameters.Add(usernameParam);
                     cmd.Parameters.Add(passwordParam);
