@@ -10,7 +10,7 @@ using Microsoft.Data.Sql;
 using Microsoft.Extensions.Configuration;
 using System;
 using Application.Functions;
-
+using static Application.Queries.UserQueries;
 
 namespace Application.Controllers
 {
@@ -29,27 +29,6 @@ namespace Application.Controllers
         {
             return "User Route";
         }
-        [HttpGet("/[controller]/k")]
-        public string Kian()
-        {
-            string password = "@Sarmen20";
-            var encrypted = PasswordEncryption.Encrypt(password);
-            return encrypted;
-        }
-
-        /*[HttpGet("/[controller]/all")]*/
-        /* public List<UserModel> GetUsers()
-         {
-             List<UserModel> l = new List<UserModel>();
-
-             l.Add(new UserModel {
-                 Age = 23, Id = 0, Name = "Kian"
-             });
-
-             l.Add(new UserModel { Id = 1, Age = 24, Name = "Jonthan" });
-
-             return l;
-         }*/
 
         [HttpPost("signup")]
         public ActionResult<Object> SignUp(UserModel body)
@@ -61,15 +40,6 @@ namespace Application.Controllers
                 return new StatusCode { code = 401, message = "Not authorized" };
             }
 
-            UserModel user = new UserModel {
-                firstname = body.firstname,
-                lastname = body.lastname,
-                username = body.username,
-                password = body.password,
-                email = body.email,
-                contact = body.contact
-            };
-
             try {
                 string connectionString = this.configuration.GetConnectionString("App");
 
@@ -80,7 +50,7 @@ namespace Application.Controllers
                     DbCommand usernameCmd = new SqlCommand("SELECT username FROM dbo.userinfo WHERE username = @username", conn);
                     SqlParameter usernameParam = new SqlParameter();
                     usernameParam.ParameterName = "@username";
-                    usernameParam.Value = user.username;
+                    usernameParam.Value = body.username;
                     usernameCmd.Parameters.Add(usernameParam);
 
                     var usernameReader = usernameCmd.ExecuteReader();
@@ -96,7 +66,7 @@ namespace Application.Controllers
                     DbCommand emailCmd = new SqlCommand("SELECT email FROM dbo.userinfo WHERE email = @email", conn);
                     SqlParameter emailParam = new SqlParameter();
                     emailParam.ParameterName = "@email";
-                    emailParam.Value = user.email;
+                    emailParam.Value = body.email;
                     emailCmd.Parameters.Add(emailParam);
 
 
@@ -113,32 +83,32 @@ namespace Application.Controllers
                     DbCommand insertCmd = new SqlCommand("INSERT INTO dbo.userinfo (username,password,email,first_name,last_name,contact_no) VALUES (@username,@password,@email,@firstname,@lastname,@contact)", conn);
                     SqlParameter usernameInsertParam = new SqlParameter();
                     usernameInsertParam.ParameterName = "@username";
-                    usernameInsertParam.Value = user.username;
+                    usernameInsertParam.Value = body.username;
                     insertCmd.Parameters.Add(usernameInsertParam);
 
                     SqlParameter passwordInsertParam = new SqlParameter();
                     passwordInsertParam.ParameterName = "@password";
-                    passwordInsertParam.Value = PasswordEncryption.Encrypt(user.password);
+                    passwordInsertParam.Value = PasswordEncryption.Encrypt(body.password);
                     insertCmd.Parameters.Add(passwordInsertParam);
 
                     SqlParameter emailInsertParam = new SqlParameter();
                     emailInsertParam.ParameterName = "@email";
-                    emailInsertParam.Value = user.email;
+                    emailInsertParam.Value = body.email;
                     insertCmd.Parameters.Add(@emailInsertParam);
 
                     SqlParameter firstnameInsertParam = new SqlParameter();
                     firstnameInsertParam.ParameterName = "@firstname";
-                    firstnameInsertParam.Value = user.firstname;
+                    firstnameInsertParam.Value = body.firstname;
                     insertCmd.Parameters.Add(firstnameInsertParam);
 
                     SqlParameter lastnameInsertParam = new SqlParameter();
                     lastnameInsertParam.ParameterName = "@lastname";
-                    lastnameInsertParam.Value = user.lastname;
+                    lastnameInsertParam.Value = body.lastname;
                     insertCmd.Parameters.Add(lastnameInsertParam);
 
                     SqlParameter contactInsertParam = new SqlParameter();
                     contactInsertParam.ParameterName = "@contact";
-                    contactInsertParam.Value = user.contact;
+                    contactInsertParam.Value = body.contact;
                     insertCmd.Parameters.Add(contactInsertParam);
 
                     var insertReader = insertCmd.ExecuteReader();
@@ -167,12 +137,7 @@ namespace Application.Controllers
         [HttpPost("/[controller]/signin")]
         public ActionResult<Object> SignIn(UserModel body)
         {
-            UserModel user = new UserModel
-            {
-                username = body.username,
-                password = body.password,
-            };
-
+           
             string auth = HttpContext.Request.Headers["Authorization"];
 
             if (auth != "Bearer @Sarmen20")
@@ -187,15 +152,15 @@ namespace Application.Controllers
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    DbCommand cmd = new SqlCommand("SELECT record_id,username,email,first_name,last_name,contact_no FROM dbo.userinfo WHERE username = @username AND password = @password", conn);
+                    DbCommand cmd = new SqlCommand(LoginAccount, conn);
 
                     SqlParameter usernameParam = new SqlParameter();
                     usernameParam.ParameterName = "username";
-                    usernameParam.Value = user.username;
+                    usernameParam.Value = body.username;
 
                     SqlParameter passwordParam = new SqlParameter();
                     passwordParam.ParameterName = "password";
-                    passwordParam.Value = PasswordEncryption.Encrypt(user.password);
+                    passwordParam.Value = PasswordEncryption.Encrypt(body.password);
 
                     cmd.Parameters.Add(usernameParam);
                     cmd.Parameters.Add(passwordParam);
@@ -213,6 +178,7 @@ namespace Application.Controllers
                             string firstName = loginReader.GetString(3); 
                             string lastName = loginReader.GetString(4); 
                             string contactNo = loginReader.GetString(5);
+                            string sessionId = Session.GenerateSessionId(DateTime.Now.ToShortDateString()+username);
 
                             loggedinAccount.id= recordId;
                             loggedinAccount.firstname = firstName;
@@ -220,18 +186,44 @@ namespace Application.Controllers
                             loggedinAccount.email = email;
                             loggedinAccount.username = username;
                             loggedinAccount.contact= contactNo;
-                      
+                            loggedinAccount.sessionId = sessionId;
+                            
+                            
                         }
+                        conn.Close();
+
+                            try
+                            {
+                                conn.Open();
+                                DbCommand sessionCmd = new SqlCommand(CreateSessionId, conn);
+
+                                SqlParameter userIdParam = new SqlParameter();
+                                userIdParam.ParameterName = "@userId";
+                                userIdParam.Value = loggedinAccount.id;
+
+                                SqlParameter sessionIdParam = new SqlParameter();
+                                sessionIdParam.ParameterName = "@sessionId";
+                                sessionIdParam.Value = loggedinAccount.sessionId;
+
+                                sessionCmd.Parameters.Add(userIdParam);
+                                sessionCmd.Parameters.Add(sessionIdParam);
+
+                                sessionCmd.ExecuteReader();
+
+                                conn.Close();
+                            }
+                            catch (Exception error)
+                            {
+                                return new StatusCode { code = 500, message = error.Message };
+                            }
+
                         return loggedinAccount;
                     }
                     else
                     {
                         return new StatusCode { code = 404, message = "Username or password does not exist in our records" };
                     }
-
-                    conn.Close();
                 }
-
             }
             catch (Exception error)
             {

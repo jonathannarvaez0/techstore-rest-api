@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Controllers"
+    "\\Controllers",
+    "\\Functions",
+    "\\Queries"
   ],
-  "SelectedNode": "\\Program.cs",
+  "SelectedNode": "\\Application.sln",
   "PreviewInSolutionExplorer": false
 }
