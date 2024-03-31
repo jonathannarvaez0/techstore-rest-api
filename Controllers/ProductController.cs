@@ -1,4 +1,5 @@
-﻿using Application.Models;
+﻿using Application.Database;
+using Application.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
@@ -10,14 +11,9 @@ namespace Application.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private IConfiguration configuration;
-
-        private string ConnectionString;
-
-        public ProductController(IConfiguration _config)
-        {
-            this.configuration = _config;
-            this.ConnectionString = _config.GetConnectionString("App");
+        private readonly DatabaseConnection _connection;
+        public ProductController(DatabaseConnection databaseConnection) {
+            this._connection = databaseConnection;
         }
         public string Index()
         {
@@ -38,10 +34,10 @@ namespace Application.Controllers
 
             try
             {
-                using (SqlConnection conn = new SqlConnection(ConnectionString))
+                using (SqlConnection conn = new SqlConnection(_connection.ConnectionString))
                 {
                     conn.Open();
-                    DbCommand cmd = new SqlCommand(GetAllProductsQuery, conn);
+                    DbCommand cmd = new SqlCommand(GetAllProducts, conn);
                     var reader = cmd.ExecuteReader();
 
                     while (reader.Read())
@@ -91,7 +87,7 @@ namespace Application.Controllers
 
             try
             {
-                using (SqlConnection conn = new SqlConnection(ConnectionString))
+                using (SqlConnection conn = new SqlConnection(_connection.ConnectionString))
                 {
                     conn.Open();
 
@@ -160,13 +156,13 @@ namespace Application.Controllers
 
             try
             {
-                string connectionString = this.configuration.GetConnectionString("App");
+                /*string connectionString = this.configuration.GetConnectionString("App");*/
 
-                using (SqlConnection conn = new SqlConnection(connectionString)) 
+                using (SqlConnection conn = new SqlConnection(_connection.ConnectionString)) 
                 {
                     conn.Open();
 
-                    DbCommand cmd = new SqlCommand("update dbo.products set product_name=@productName,price=@price,location=@location,details=@details,category=@categoryId,condition=@conditionId,warranty=@warrantyId where product_id=@id ", conn);
+                    DbCommand cmd = new SqlCommand(ModifyProduct, conn);
                     
                     SqlParameter idParam = new SqlParameter();
                     idParam.ParameterName = "@id";
@@ -229,9 +225,8 @@ namespace Application.Controllers
 
             try
             {
-                string connectionString = this.configuration.GetConnectionString("App");
 
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = new SqlConnection(_connection.ConnectionString))
                 {
                     conn.Open();
                     DbCommand cmd = new SqlCommand(GetAllCategories, conn);
@@ -262,12 +257,11 @@ namespace Application.Controllers
 
             try
             {
-                string connectionString = this.configuration.GetConnectionString("App");
 
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = new SqlConnection(_connection.ConnectionString))
                 {
                     conn.Open();
-                    DbCommand cmd = new SqlCommand("select * from dbo.product_condition", conn);
+                    DbCommand cmd = new SqlCommand(GetAllConditions, conn);
                     var reader = cmd.ExecuteReader();
 
                     while (reader.Read())
@@ -294,13 +288,11 @@ namespace Application.Controllers
             List<WarrantyModel> warranty = new List<WarrantyModel>();
             try
             {
-                string connectionString = this.configuration.GetConnectionString("App");
-
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = new SqlConnection(_connection.ConnectionString))
                 {
                     conn.Open();
 
-                    DbCommand cmd = new SqlCommand("select * from dbo.product_warranty", conn);
+                    DbCommand cmd = new SqlCommand(GetAllWarranty, conn);
                     var reader = cmd.ExecuteReader();
 
                     while (reader.Read())

@@ -1,6 +1,7 @@
 using Application.Models;
 using Newtonsoft.Json.Serialization;
 using Application.Controllers;
+using Application.Database;
 
 namespace Application
 {
@@ -12,6 +13,8 @@ namespace Application
 
 
             // Add services to the container.
+
+            builder.Services.AddSingleton<DatabaseConnection>();
 
             builder.Services.AddControllers();
 

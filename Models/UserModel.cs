@@ -9,5 +9,6 @@
         public string? contact { get; set; }
         public string? firstname { get; set; }
         public string? lastname { get; set; }
+        public string? sessionId { get; set; }
     }
 }
