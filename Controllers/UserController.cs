@@ -134,7 +134,7 @@ namespace Application.Controllers
         }
 
 
-        [HttpPost("/[controller]/signin")]
+        [HttpPost("signin")]
         public ActionResult<Object> SignIn(UserModel body)
         {
 
@@ -176,7 +176,7 @@ namespace Application.Controllers
                             string firstName = loginReader.GetString(3);
                             string lastName = loginReader.GetString(4);
                             string contactNo = loginReader.GetString(5);
-                            string sessionId = Session.GenerateSessionId(DateTime.Now.ToShortDateString() + username);
+                            string sessionId = Session.GenerateSessionId(DateTime.UtcNow.ToFileTimeUtc() + username);
 
                             loggedinAccount.id = recordId;
                             loggedinAccount.firstname = firstName;
@@ -230,7 +230,7 @@ namespace Application.Controllers
 
         }
 
-        [HttpPost("/[controller]/relogin")]
+        [HttpPost("relogin")]
         public ActionResult<Object> Relogin([FromBody]string body)
         {
             string auth = HttpContext.Request.Headers["Authorization"];
@@ -277,6 +277,43 @@ namespace Application.Controllers
             {
                 return new StatusCode { code = 500, message = error.Message };
             }
-        }  
+        }
+
+        [HttpPost("remove-session")]  
+        public ActionResult<Object> RemoveSession([FromBody] string body)
+        {
+            string auth = HttpContext.Request.Headers["Authorization"];
+
+            if (auth != "Bearer @Sarmen20")
+            {
+                return new StatusCode { code = 401, message = "Not authorized" };
+            }
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_connection.ConnectionString))
+                {
+                    conn.Open();
+
+                    DbCommand cmd = new SqlCommand(RemoveSessionById, conn);
+
+                    SqlParameter sessionIdParam = new SqlParameter();
+                    sessionIdParam.ParameterName = "@sessionId";
+                    sessionIdParam.Value = body;
+
+                    cmd.Parameters.Add(sessionIdParam);
+
+                    cmd.ExecuteReader();
+
+                    conn.Close();
+
+                    return new StatusCode { code = 200, message = "Success" };
+                }
+            }
+            catch(Exception error)
+            {
+                return new StatusCode { code = 500, message = error.Message };
+            }
+        }      
     }
 }
