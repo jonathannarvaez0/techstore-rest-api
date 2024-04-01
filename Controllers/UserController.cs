@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using System;
 using Application.Functions;
 using static Application.Queries.UserQueries;
+using Application.Database;
 
 namespace Application.Controllers
 {
@@ -19,12 +20,12 @@ namespace Application.Controllers
     public class UserController : ControllerBase
     {
 
-        private IConfiguration configuration;
-
-        public UserController(IConfiguration _config)
+        private readonly DatabaseConnection _connection;
+        public UserController(DatabaseConnection databaseConnection)
         {
-            this.configuration = _config;
+            this._connection = databaseConnection;
         }
+
         public string Index()
         {
             return "User Route";
@@ -41,9 +42,8 @@ namespace Application.Controllers
             }
 
             try {
-                string connectionString = this.configuration.GetConnectionString("App");
 
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = new SqlConnection(_connection.ConnectionString))
                 {
                     conn.Open();
 
@@ -115,7 +115,7 @@ namespace Application.Controllers
 
                     if (insertReader != null)
                     {
-                        return new StatusCode { code =200, message ="Success!"};
+                        return new StatusCode { code = 200, message = "Success!" };
                     }
                     else
                     {
@@ -127,17 +127,17 @@ namespace Application.Controllers
             }
             catch (Exception error)
             {
-                return new StatusCode { code=500, message=error.Message};
+                return new StatusCode { code = 500, message = error.Message };
             }
 
-     
+
         }
 
 
-        [HttpPost("/[controller]/signin")]
+        [HttpPost("signin")]
         public ActionResult<Object> SignIn(UserModel body)
         {
-           
+
             string auth = HttpContext.Request.Headers["Authorization"];
 
             if (auth != "Bearer @Sarmen20")
@@ -147,9 +147,7 @@ namespace Application.Controllers
 
             try
             {
-                string connectionString = this.configuration.GetConnectionString("App");
-
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = new SqlConnection(_connection.ConnectionString))
                 {
                     conn.Open();
                     DbCommand cmd = new SqlCommand(LoginAccount, conn);
@@ -175,47 +173,47 @@ namespace Application.Controllers
                             int recordId = loginReader.GetInt32(0);
                             string username = loginReader.GetString(1);
                             string email = loginReader.GetString(2);
-                            string firstName = loginReader.GetString(3); 
-                            string lastName = loginReader.GetString(4); 
+                            string firstName = loginReader.GetString(3);
+                            string lastName = loginReader.GetString(4);
                             string contactNo = loginReader.GetString(5);
-                            string sessionId = Session.GenerateSessionId(DateTime.Now.ToShortDateString()+username);
+                            string sessionId = Session.GenerateSessionId(DateTime.UtcNow.ToFileTimeUtc() + username);
 
-                            loggedinAccount.id= recordId;
+                            loggedinAccount.id = recordId;
                             loggedinAccount.firstname = firstName;
                             loggedinAccount.lastname = lastName;
                             loggedinAccount.email = email;
                             loggedinAccount.username = username;
-                            loggedinAccount.contact= contactNo;
+                            loggedinAccount.contact = contactNo;
                             loggedinAccount.sessionId = sessionId;
-                            
-                            
+
+
                         }
                         conn.Close();
 
-                            try
-                            {
-                                conn.Open();
-                                DbCommand sessionCmd = new SqlCommand(CreateSessionId, conn);
+                        try
+                        {
+                            conn.Open();
+                            DbCommand sessionCmd = new SqlCommand(CreateSessionId, conn);
 
-                                SqlParameter userIdParam = new SqlParameter();
-                                userIdParam.ParameterName = "@userId";
-                                userIdParam.Value = loggedinAccount.id;
+                            SqlParameter userIdParam = new SqlParameter();
+                            userIdParam.ParameterName = "@userId";
+                            userIdParam.Value = loggedinAccount.id;
 
-                                SqlParameter sessionIdParam = new SqlParameter();
-                                sessionIdParam.ParameterName = "@sessionId";
-                                sessionIdParam.Value = loggedinAccount.sessionId;
+                            SqlParameter sessionIdParam = new SqlParameter();
+                            sessionIdParam.ParameterName = "@sessionId";
+                            sessionIdParam.Value = loggedinAccount.sessionId;
 
-                                sessionCmd.Parameters.Add(userIdParam);
-                                sessionCmd.Parameters.Add(sessionIdParam);
+                            sessionCmd.Parameters.Add(userIdParam);
+                            sessionCmd.Parameters.Add(sessionIdParam);
 
-                                sessionCmd.ExecuteReader();
+                            sessionCmd.ExecuteReader();
 
-                                conn.Close();
-                            }
-                            catch (Exception error)
-                            {
-                                return new StatusCode { code = 500, message = error.Message };
-                            }
+                            conn.Close();
+                        }
+                        catch (Exception error)
+                        {
+                            return new StatusCode { code = 500, message = error.Message };
+                        }
 
                         return loggedinAccount;
                     }
@@ -227,9 +225,95 @@ namespace Application.Controllers
             }
             catch (Exception error)
             {
-                return new StatusCode { code=500, message=error.Message};
+                return new StatusCode { code = 500, message = error.Message };
             }
 
-        }    
+        }
+
+        [HttpPost("relogin")]
+        public ActionResult<Object> Relogin([FromBody]string body)
+        {
+            string auth = HttpContext.Request.Headers["Authorization"];
+
+            if (auth != "Bearer @Sarmen20")
+            {
+                return new StatusCode { code = 401, message = "Not authorized" };
+            }
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_connection.ConnectionString))
+                {
+                    conn.Open();
+
+                    DbCommand cmd = new SqlCommand(LoginUsingSession, conn);
+
+                    SqlParameter sessionIdParam = new SqlParameter();
+                    sessionIdParam.ParameterName = "@sessionId";
+                    sessionIdParam.Value = body;
+
+                    cmd.Parameters.Add(sessionIdParam);
+
+                    var reader = cmd.ExecuteReader();
+
+                    UserModel user = new UserModel();
+                    while (reader.Read())
+                    {
+                        user.id = reader.GetInt32(0);
+                        user.username = reader.GetString(1);
+                        user.email = reader.GetString(2);
+                        user.firstname = reader.GetString(3);
+                        user.lastname = reader.GetString(4);
+                        user.contact = reader.GetString(5);
+                        user.sessionId = reader.GetString(6);
+                    }
+
+                    conn.Close();
+
+                    return user;
+                }
+            }
+            catch (Exception error)
+            {
+                return new StatusCode { code = 500, message = error.Message };
+            }
+        }
+
+        [HttpPost("remove-session")]  
+        public ActionResult<Object> RemoveSession([FromBody] string body)
+        {
+            string auth = HttpContext.Request.Headers["Authorization"];
+
+            if (auth != "Bearer @Sarmen20")
+            {
+                return new StatusCode { code = 401, message = "Not authorized" };
+            }
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_connection.ConnectionString))
+                {
+                    conn.Open();
+
+                    DbCommand cmd = new SqlCommand(RemoveSessionById, conn);
+
+                    SqlParameter sessionIdParam = new SqlParameter();
+                    sessionIdParam.ParameterName = "@sessionId";
+                    sessionIdParam.Value = body;
+
+                    cmd.Parameters.Add(sessionIdParam);
+
+                    cmd.ExecuteReader();
+
+                    conn.Close();
+
+                    return new StatusCode { code = 200, message = "Success" };
+                }
+            }
+            catch(Exception error)
+            {
+                return new StatusCode { code = 500, message = error.Message };
+            }
+        }      
     }
 }
