@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\Jonathan Narvaez\\Desktop\\techstore-rest-api\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{05740D51-F8D8-4951-8DA6-7774209F270E}|Application.csproj|c:\\users\\jonathan narvaez\\desktop\\techstore-rest-api\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{05740D51-F8D8-4951-8DA6-7774209F270E}|Application.csproj|solutionrelative:controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{05740D51-F8D8-4951-8DA6-7774209F270E}|Application.csproj|c:\\users\\jonathan narvaez\\desktop\\techstore-rest-api\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{05740D51-F8D8-4951-8DA6-7774209F270E}|Application.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{05740D51-F8D8-4951-8DA6-7774209F270E}|Application.csproj|c:\\users\\jonathan narvaez\\desktop\\techstore-rest-api\\database\\databaseconnection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{05740D51-F8D8-4951-8DA6-7774209F270E}|Application.csproj|solutionrelative:database\\databaseconnection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{05740D51-F8D8-4951-8DA6-7774209F270E}|Application.csproj|c:\\users\\jonathan narvaez\\desktop\\techstore-rest-api\\queries\\userqueries.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{05740D51-F8D8-4951-8DA6-7774209F270E}|Application.csproj|solutionrelative:queries\\userqueries.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,32 +18,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ProductController.cs",
-              "DocumentMoniker": "C:\\Users\\Jonathan Narvaez\\Desktop\\techstore-rest-api\\Controllers\\ProductController.cs",
-              "RelativeDocumentMoniker": "Controllers\\ProductController.cs",
-              "ToolTip": "C:\\Users\\Jonathan Narvaez\\Desktop\\techstore-rest-api\\Controllers\\ProductController.cs",
-              "RelativeToolTip": "Controllers\\ProductController.cs",
-              "ViewState": "AQIAACUBAAAAAAAAAAAAwCIBAABaAAAA",
+              "DocumentIndex": 1,
+              "Title": "UserQueries.cs",
+              "DocumentMoniker": "C:\\Users\\Jonathan Narvaez\\Desktop\\techstore-rest-api\\Queries\\UserQueries.cs",
+              "RelativeDocumentMoniker": "Queries\\UserQueries.cs",
+              "ToolTip": "C:\\Users\\Jonathan Narvaez\\Desktop\\techstore-rest-api\\Queries\\UserQueries.cs",
+              "RelativeToolTip": "Queries\\UserQueries.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAD3AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-31T13:15:48.216Z",
+              "WhenOpened": "2024-04-01T03:18:36.589Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "DatabaseConnection.cs",
-              "DocumentMoniker": "C:\\Users\\Jonathan Narvaez\\Desktop\\techstore-rest-api\\Database\\DatabaseConnection.cs",
-              "RelativeDocumentMoniker": "Database\\DatabaseConnection.cs",
-              "ToolTip": "C:\\Users\\Jonathan Narvaez\\Desktop\\techstore-rest-api\\Database\\DatabaseConnection.cs",
-              "RelativeToolTip": "Database\\DatabaseConnection.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAvAAAA",
+              "DocumentIndex": 0,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\Jonathan Narvaez\\Desktop\\techstore-rest-api\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\Jonathan Narvaez\\Desktop\\techstore-rest-api\\Controllers\\UserController.cs",
+              "RelativeToolTip": "Controllers\\UserController.cs",
+              "ViewState": "AQIAAPUAAAAAAAAAAAAAAP4AAAA1AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-31T03:17:31.111Z",
+              "WhenOpened": "2024-04-01T02:27:54.989Z",
               "EditorCaption": ""
             }
           ]
