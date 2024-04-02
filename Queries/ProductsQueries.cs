@@ -8,10 +8,13 @@
 
         public static string AddProduct = "INSERT INTO dbo.products (product_name, price, date_posted, location, details, category, condition, warranty,seller) VALUES (@productName,@price,@datePosted,@location,@details,@category,@condition,@warranty,@seller)";
 
-        public static string ModifyProduct = "UPDATE dbo.products SET product_name=@productName,price=@price,location=@location,details=@details,category=@categoryId,condition=@conditionId,warranty=@warrantyId WHERE product_id=@id";
+        public static string ModifyProduct = "UPDATE dbo.products SET product_name=@productName,price=@price,location=@location,details=@details,category=@categoryId,condition=@conditionId,warranty=@warrantyId WHERE product_id=@productId";
 
         public static string GetAllConditions = "SELECT * FROM dbo.product_condition";
 
         public static string GetAllWarranty = "SELECT * FROM dbo.product_warranty";
+
+        public static string RemoveProduct = "DELETE FROM dbo.products WHERE product_id = @productId";
+
     }
 }

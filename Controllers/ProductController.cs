@@ -150,14 +150,19 @@ namespace Application.Controllers
             }
         }
 
-        [HttpGet("modify/{productId}")]
-        public ActionResult<Object> ModifyExistingProduct(string productId, [FromBody] ProductModel body)
+        [HttpPost("modify")]
+        public ActionResult<Object> ModifyExistingProduct([FromBody] ProductModel body)
         {
+            string auth = HttpContext.Request.Headers["Authorization"];
+
+            if (auth != "Bearer @Sarmen20")
+            {
+                return new StatusCode { code = 401, message = "Not authorized" };
+            }
 
             try
             {
-                /*string connectionString = this.configuration.GetConnectionString("App");*/
-
+              
                 using (SqlConnection conn = new SqlConnection(_connection.ConnectionString)) 
                 {
                     conn.Open();
@@ -165,8 +170,8 @@ namespace Application.Controllers
                     DbCommand cmd = new SqlCommand(ModifyProduct, conn);
                     
                     SqlParameter idParam = new SqlParameter();
-                    idParam.ParameterName = "@id";
-                    idParam.Value = productId;
+                    idParam.ParameterName = "@productId";
+                    idParam.Value = body.id;
                     cmd.Parameters.Add(idParam);
 
                     SqlParameter productNameParam = new SqlParameter();
@@ -213,6 +218,43 @@ namespace Application.Controllers
 
             }
             catch (Exception error)
+            {
+                return new StatusCode { code = 500, message = error.Message };
+            }
+        }
+
+        [HttpGet("delete/{productId}")]
+        public ActionResult<Object> DeleteProduct(string productId)
+        {
+
+            string auth = HttpContext.Request.Headers["Authorization"];
+
+            if (auth != "Bearer @Sarmen20")
+            {
+                return new StatusCode { code = 401, message = "Not authorized" };
+            }
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_connection.ConnectionString))
+                {
+                    conn.Open();
+
+                    DbCommand cmd = new SqlCommand(RemoveProduct, conn);
+
+                    SqlParameter productIdParam = new SqlParameter();
+                    productIdParam.ParameterName = "@productId";
+                    productIdParam.Value = productId;
+
+                    cmd.Parameters.Add(productIdParam);
+
+                    cmd.ExecuteReader();
+
+                    conn.Close();
+
+                    return new StatusCode { code = 200, message = "Sucessfully Deleted Product" };
+                }
+            }catch(Exception error)
             {
                 return new StatusCode { code = 500, message = error.Message };
             }
