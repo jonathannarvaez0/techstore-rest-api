@@ -16,5 +16,12 @@
 
         public static string RemoveProduct = "DELETE FROM dbo.products WHERE product_id = @productId";
 
+        public static string GetAllBookmarks = "SELECT bookmark_id,product_id,product_name, price, date_posted, location, details,category, category_name,condition,condition_name,warranty,warranty_name,seller,username,email,contact_no FROM dbo.bookmarks INNER JOIN dbo.products ON dbo.products.product_id = dbo.bookmarks.item_bookmarked_id INNER JOIN dbo.userinfo ON dbo.userinfo.record_id = dbo.products.seller INNER JOIN dbo.product_category ON dbo.products.category = dbo.product_category.category_id INNER JOIN dbo.product_condition ON dbo.products.condition = dbo.product_condition.condition_id INNER JOIN dbo.product_warranty ON dbo.products.warranty = dbo.product_warranty.warranty_id WHERE bookmarker_id = @bookmarkerId";
+
+        public static string AddBookmark = "INSERT INTO dbo.bookmarks (bookmarker_id, item_bookmarked_id) VALUES (@bookmarkerId, @itemBookmarkedId)";
+
+        public static string RemoveBookmark = "DELETE FROM dbo.bookmarks WHERE bookmark_id = @bookmarkId";
+
+        public static string RemoveAllBookmarks = "DELETE FROM dbo.bookmarks WHERE bookmarker_id = @bookmarkerId";
     }
 }
