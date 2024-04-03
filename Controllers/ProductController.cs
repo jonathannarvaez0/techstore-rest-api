@@ -162,13 +162,13 @@ namespace Application.Controllers
 
             try
             {
-              
-                using (SqlConnection conn = new SqlConnection(_connection.ConnectionString)) 
+
+                using (SqlConnection conn = new SqlConnection(_connection.ConnectionString))
                 {
                     conn.Open();
 
                     DbCommand cmd = new SqlCommand(ModifyProduct, conn);
-                    
+
                     SqlParameter idParam = new SqlParameter();
                     idParam.ParameterName = "@productId";
                     idParam.Value = body.id;
@@ -176,7 +176,7 @@ namespace Application.Controllers
 
                     SqlParameter productNameParam = new SqlParameter();
                     productNameParam.ParameterName = "@productName";
-                    productNameParam.Value= body.productName;
+                    productNameParam.Value = body.productName;
                     cmd.Parameters.Add(productNameParam);
 
                     SqlParameter priceParam = new SqlParameter();
@@ -194,9 +194,9 @@ namespace Application.Controllers
                     details.Value = body.details;
                     cmd.Parameters.Add(details);
 
-                    SqlParameter categoryParam= new SqlParameter();
+                    SqlParameter categoryParam = new SqlParameter();
                     categoryParam.ParameterName = "@categoryId";
-                    categoryParam.Value=body.categoryId;
+                    categoryParam.Value = body.categoryId;
                     cmd.Parameters.Add(categoryParam);
 
                     SqlParameter conditionParam = new SqlParameter();
@@ -254,7 +254,8 @@ namespace Application.Controllers
 
                     return new StatusCode { code = 200, message = "Sucessfully Deleted Product" };
                 }
-            }catch(Exception error)
+
+            } catch (Exception error)
             {
                 return new StatusCode { code = 500, message = error.Message };
             }
@@ -346,6 +347,151 @@ namespace Application.Controllers
                 }
             }
             catch (Exception error)
+            {
+                return new StatusCode { code = 500, message = error.Message };
+            }
+        }
+
+        [HttpGet("bookmark/all/{bookmarkerId}")]
+        public ActionResult<Object> GetBookmarks(string bookmarkerId)
+        {
+            string auth = HttpContext.Request.Headers["Authorization"];
+
+            if (auth != "Bearer @Sarmen20")
+            {
+                return new StatusCode { code = 401, message = "Not authorized" };
+            }
+
+            List<BookmarkModel> bookmarks = new List<BookmarkModel>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_connection.ConnectionString))
+                {
+                    conn.Open();
+
+                    DbCommand cmd = new SqlCommand(GetAllBookmarks, conn);
+
+                    SqlParameter bookmarkIdParam = new SqlParameter();
+                    bookmarkIdParam.ParameterName = "@bookmarkerId";
+                    bookmarkIdParam.Value = bookmarkerId;
+
+                    cmd.Parameters.Add(bookmarkIdParam);
+
+                    var reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        bookmarks.Add(new BookmarkModel
+                        {
+                            id = reader.GetInt32(0),
+                            itemBookmarkedId = reader.GetInt32(1),
+                            product = new ProductModel
+                            {
+                                id =reader.GetInt32(1),
+                                productName = reader.GetString(2),
+                                price = reader.GetString(3),
+                                datePosted = reader.GetDateTime(4).ToString(),
+                                location = reader.GetString(5),
+                                details = reader.GetString(6),
+                                categoryId= reader.GetInt32(7),
+                                categoryName = reader.GetString(8),
+                                conditionId = reader.GetInt32(9),
+                                conditionName = reader.GetString(10),
+                                warrantyId = reader.GetInt32(11),
+                                warrantyName = reader.GetString(12),
+                                sellerId = reader.GetInt32(13),
+                                sellerUsername = reader.GetString(14),
+                                sellerEmail = reader.GetString(15),
+                                sellerContact = reader.GetString(15)
+                            }
+                        });
+                    }
+
+                    conn.Close();
+
+                    return bookmarks;
+                }
+            }
+            catch (Exception error)
+            {
+                return new StatusCode { code = 500, message = error.Message };
+            }
+        }
+        
+        [HttpPost("bookmark/add")]
+        public ActionResult<Object> CreateBookmark(BookmarkModel body)
+        {
+            string auth = HttpContext.Request.Headers["Authorization"];
+
+            if (auth != "Bearer @Sarmen20")
+            {
+                return new StatusCode { code = 401, message = "Not authorized" };
+            }
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_connection.ConnectionString))
+                {
+                    conn.Open();
+                    
+                    DbCommand cmd = new SqlCommand(AddBookmark,conn);
+
+                    SqlParameter bookmarkerIdParam = new SqlParameter();
+                    bookmarkerIdParam.ParameterName = "@bookmarkerId";
+                    bookmarkerIdParam.Value = body.bookmarkerId;
+                    cmd.Parameters.Add(bookmarkerIdParam);
+
+                    SqlParameter itemBookmarkedIdParam = new SqlParameter();
+                    itemBookmarkedIdParam.ParameterName = "@itemBookmarkedId";
+                    itemBookmarkedIdParam.Value = body.itemBookmarkedId;
+                    cmd.Parameters.Add(itemBookmarkedIdParam);
+
+                    cmd.ExecuteReader();
+
+                    conn.Close();
+
+                    return new StatusCode { code = 200, message = "Insert Success" };
+                }
+
+            }catch(Exception error) 
+            { 
+                return new StatusCode { code = 500, message = error.Message}; 
+            }
+        }
+
+        [HttpGet("bookmark/delete/{bookmarkId}")]
+        public ActionResult<Object> DeleteBookmarks(string bookmarkId)
+        {
+            string auth = HttpContext.Request.Headers["Authorization"];
+
+            if (auth != "Bearer @Sarmen20")
+            {
+                return new StatusCode { code = 401, message = "Not authorized" };
+            }
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_connection.ConnectionString))
+                {
+                    conn.Open();
+
+                    DbCommand cmd = new SqlCommand(RemoveBookmark, conn);
+
+                    SqlParameter bookmarkIdParam = new SqlParameter();
+                    bookmarkIdParam.ParameterName = "@bookmarkId";
+                    bookmarkIdParam.Value = bookmarkId;
+
+                    cmd.Parameters.Add(bookmarkIdParam);
+
+                    cmd.ExecuteReader();
+
+                    conn.Close();
+
+                    return new StatusCode { code = 200, message = "Success deletion" };
+                }
+
+            }catch(Exception error) 
             {
                 return new StatusCode { code = 500, message = error.Message };
             }
