@@ -20,5 +20,6 @@ namespace Application.Models
         public string? sellerUsername { get; set; }
         public string? sellerEmail { get; set;}
         public string? sellerContact { get; set;}
+        public bool? isBookmarked { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 {
     public class ProductsQueries
     {
-        public static string GetAllProducts = "SELECT product_id,product_name,price,date_posted,location,details,category,condition,warranty,category_name,condition_name,warranty_name,seller,username,email,contact_no FROM dbo.products INNER JOIN dbo.product_category ON dbo.products.category = dbo.product_category.category_id INNER JOIN dbo.product_condition ON dbo.products.condition = dbo.product_condition.condition_id INNER JOIN dbo.product_warranty on dbo.products.warranty  = dbo.product_warranty.warranty_id INNER JOIN dbo.userinfo on dbo.products.seller = dbo.userinfo.record_id  ORDER BY date_posted DESC";
+        public static string GetAllProducts = "SELECT product_id,product_name,price,date_posted,location,details,category,condition,warranty,category_name,condition_name,warranty_name,seller,username,email,contact_no,bookmark_id FROM dbo.products INNER JOIN dbo.product_category ON dbo.products.category = dbo.product_category.category_id INNER JOIN dbo.product_condition ON dbo.products.condition = dbo.product_condition.condition_id INNER JOIN dbo.product_warranty ON dbo.products.warranty = dbo.product_warranty.warranty_id INNER JOIN dbo.userinfo ON dbo.products.seller = dbo.userinfo.record_id LEFT JOIN dbo.bookmarks ON dbo.bookmarks.item_bookmarked_id = dbo.products.product_id AND dbo.bookmarks.bookmarker_id = @userLoggedIn ORDER BY date_posted DESC";
 
         public static string GetAllCategories = "SELECT * FROM dbo.product_category";
 

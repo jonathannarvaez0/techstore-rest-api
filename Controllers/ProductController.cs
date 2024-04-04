@@ -20,8 +20,8 @@ namespace Application.Controllers
             return "Products";
         }
 
-        [HttpGet("all")]
-        public ActionResult<Object> GetProducts()
+        [HttpGet("all/{userLoggedIn}")]
+        public ActionResult<Object> GetProducts(string userLoggedIn)
         {
             List<ProductModel> products = new List<ProductModel>();
 
@@ -38,6 +38,13 @@ namespace Application.Controllers
                 {
                     conn.Open();
                     DbCommand cmd = new SqlCommand(GetAllProducts, conn);
+
+                    SqlParameter userLoggedInParam = new SqlParameter();
+                    userLoggedInParam.ParameterName = "@userLoggedIn";
+                    userLoggedInParam.Value = userLoggedIn;
+
+                    cmd.Parameters.Add(userLoggedInParam);
+
                     var reader = cmd.ExecuteReader();
 
                     while (reader.Read())
@@ -60,6 +67,7 @@ namespace Application.Controllers
                             sellerUsername = reader.GetString(13),
                             sellerEmail = reader.GetString(14),
                             sellerContact = reader.GetString(15),
+                            isBookmarked = reader.IsDBNull(16) ? false : true,
                         });
                     }
                     conn.Close();

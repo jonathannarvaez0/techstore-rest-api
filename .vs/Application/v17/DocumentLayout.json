@@ -11,8 +11,8 @@
       "RelativeMoniker": "D:0:0:{05740D51-F8D8-4951-8DA6-7774209F270E}|Application.csproj|solutionrelative:controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{05740D51-F8D8-4951-8DA6-7774209F270E}|Application.csproj|c:\\users\\jonathan narvaez\\desktop\\techstore-rest-api\\models\\bookmarkmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{05740D51-F8D8-4951-8DA6-7774209F270E}|Application.csproj|solutionrelative:models\\bookmarkmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{05740D51-F8D8-4951-8DA6-7774209F270E}|Application.csproj|c:\\users\\jonathan narvaez\\desktop\\techstore-rest-api\\models\\productmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{05740D51-F8D8-4951-8DA6-7774209F270E}|Application.csproj|solutionrelative:models\\productmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{05740D51-F8D8-4951-8DA6-7774209F270E}|Application.csproj|c:\\users\\jonathan narvaez\\desktop\\techstore-rest-api\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -25,6 +25,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{05740D51-F8D8-4951-8DA6-7774209F270E}|Application.csproj|c:\\users\\jonathan narvaez\\desktop\\techstore-rest-api\\queries\\userqueries.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{05740D51-F8D8-4951-8DA6-7774209F270E}|Application.csproj|solutionrelative:queries\\userqueries.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Jonathan Narvaez\\Desktop\\techstore-rest-api\\Models\\BookmarkModel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Models\\BookmarkModel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,8 +38,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 5,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ProductModel.cs",
+              "DocumentMoniker": "C:\\Users\\Jonathan Narvaez\\Desktop\\techstore-rest-api\\Models\\ProductModel.cs",
+              "RelativeDocumentMoniker": "Models\\ProductModel.cs",
+              "ToolTip": "C:\\Users\\Jonathan Narvaez\\Desktop\\techstore-rest-api\\Models\\ProductModel.cs",
+              "RelativeToolTip": "Models\\ProductModel.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAmwBYAAAAhAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-04T11:18:51.022Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 4,
@@ -46,12 +63,11 @@
               "RelativeToolTip": "Models\\ConditionModel.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-03T03:19:32.761Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-03T03:19:32.761Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "BookmarkModel.cs",
               "DocumentMoniker": "C:\\Users\\Jonathan Narvaez\\Desktop\\techstore-rest-api\\Models\\BookmarkModel.cs",
               "RelativeDocumentMoniker": "Models\\BookmarkModel.cs",
@@ -59,8 +75,7 @@
               "RelativeToolTip": "Models\\BookmarkModel.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAqwAUAAAAtAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-03T00:58:18.301Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-03T00:58:18.301Z"
             },
             {
               "$type": "Document",
@@ -72,8 +87,7 @@
               "RelativeToolTip": "Controllers\\UserController.cs",
               "ViewState": "AQIAAC0BAAAAAAAAAAAAAKcAAAAsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-02T13:32:45.951Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-02T13:32:45.951Z"
             },
             {
               "$type": "Document",
@@ -83,7 +97,7 @@
               "RelativeDocumentMoniker": "Controllers\\ProductController.cs",
               "ToolTip": "C:\\Users\\Jonathan Narvaez\\Desktop\\techstore-rest-api\\Controllers\\ProductController.cs",
               "RelativeToolTip": "Controllers\\ProductController.cs",
-              "ViewState": "AQIAAHQBAAAAAAAAAAAiwHcBAABEAAAA",
+              "ViewState": "AQIAACMAAAAAAAAAAAAuwEUAAAA/AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-02T05:00:25.614Z",
               "EditorCaption": ""
@@ -96,7 +110,7 @@
               "RelativeDocumentMoniker": "Queries\\ProductsQueries.cs",
               "ToolTip": "C:\\Users\\Jonathan Narvaez\\Desktop\\techstore-rest-api\\Queries\\ProductsQueries.cs",
               "RelativeToolTip": "Queries\\ProductsQueries.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAuwBIAAADXAgAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAABxAgAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-02T04:59:44.369Z",
               "EditorCaption": ""
@@ -111,8 +125,7 @@
               "RelativeToolTip": "Queries\\UserQueries.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAEAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-01T03:18:36.589Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-01T03:18:36.589Z"
             }
           ]
         }
