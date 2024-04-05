@@ -388,7 +388,7 @@ namespace Application.Controllers
 
                     var reader = cmd.ExecuteReader();
 
-                    if (reader.Read())
+                    while(reader.Read())
                     {
                         bookmarks.Add(new BookmarkModel
                         {
@@ -469,7 +469,7 @@ namespace Application.Controllers
         }
 
         [HttpGet("bookmark/delete/{bookmarkId}")]
-        public ActionResult<Object> DeleteBookmarks(string bookmarkId)
+        public ActionResult<Object> DeleteBookmarkFromMyBookmarks(string bookmarkId)
         {
             string auth = HttpContext.Request.Headers["Authorization"];
 
@@ -484,7 +484,7 @@ namespace Application.Controllers
                 {
                     conn.Open();
 
-                    DbCommand cmd = new SqlCommand(RemoveBookmark, conn);
+                    DbCommand cmd = new SqlCommand(RemoveBookmarkFromMyBookmarks, conn);
 
                     SqlParameter bookmarkIdParam = new SqlParameter();
                     bookmarkIdParam.ParameterName = "@bookmarkId";
@@ -500,6 +500,46 @@ namespace Application.Controllers
                 }
 
             }catch(Exception error) 
+            {
+                return new StatusCode { code = 500, message = error.Message };
+            }
+        }
+
+        [HttpPost("bookmark/delete")]
+        public ActionResult<Object> RemoveBookmarkFromList(BookmarkModel body)
+        {
+            string auth = HttpContext.Request.Headers["Authorization"];
+
+            if (auth != "Bearer @Sarmen20")
+            {
+                return new StatusCode { code = 401, message = "Not authorized" };
+            }
+
+            try
+            {
+                using(SqlConnection conn = new SqlConnection(_connection.ConnectionString))
+                {
+                    conn.Open();
+
+                    DbCommand cmd = new SqlCommand(RemoveBookmark, conn);
+
+                    SqlParameter bookmarkerIdParam = new SqlParameter();
+                    bookmarkerIdParam.ParameterName = "@bookmarkerId";
+                    bookmarkerIdParam.Value = body.bookmarkerId;
+                    cmd.Parameters.Add(bookmarkerIdParam);
+
+                    SqlParameter itemBookmarkedId = new SqlParameter();
+                    itemBookmarkedId.ParameterName = "@itemBookmarkedId";
+                    itemBookmarkedId.Value = body.itemBookmarkedId;
+                    cmd.Parameters.Add(itemBookmarkedId);
+
+                    cmd.ExecuteReader();
+
+                    return new StatusCode { code = 200, message = "Success deletion" };
+                    
+                    conn.Close();
+                }
+            } catch (Exception error)
             {
                 return new StatusCode { code = 500, message = error.Message };
             }
