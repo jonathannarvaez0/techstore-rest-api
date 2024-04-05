@@ -20,8 +20,8 @@
 
         public static string AddBookmark = "INSERT INTO dbo.bookmarks (bookmarker_id, item_bookmarked_id) VALUES (@bookmarkerId, @itemBookmarkedId)";
 
-        public static string RemoveBookmark = "DELETE FROM dbo.bookmarks WHERE bookmark_id = @bookmarkId";
+        public static string RemoveBookmarkFromMyBookmarks = "DELETE FROM dbo.bookmarks WHERE bookmark_id = @bookmarkId";
 
-        public static string RemoveAllBookmarks = "DELETE FROM dbo.bookmarks WHERE bookmarker_id = @bookmarkerId";
+        public static string RemoveBookmark = "DELETE FROM dbo.bookmarks WHERE bookmarker_id = @bookmarkerId AND item_bookmarked_id = @itemBookmarkedId";
     }
 }
